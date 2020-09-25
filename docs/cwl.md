@@ -225,6 +225,41 @@ curl \
   "${CWL_WES_API}/runs"
 ```
 
+### GWAS workflow
+
+> Prepared for Federal Analysis Systems Project (FASP) demonstrator at GA4GH
+> Plenary 2020
+
+Services used:
+
+* **WES:** cwl-WES (`elixircloud/cwl-wes:20200925`)
+* **TES:** TESK (`v0.8.2_trs`)
+* **DRS:** DRS-Filer (`elixircloud/drs-filer:20200923`)
+* **DRS:** RDSDS (**TODO**: add version)
+* **TRS:** Biocontainers (**TODO**: add version)
+
+Required parameters:
+
+* `workflow_params`: `{"metadata":{"class":"File","path":"drs://rdsds.rahtiapp.fi/6bc267ee29e120d0c3df7692ae00276f5436dfbf3f40da64b48e3fc3d5183de2a5be54695b91a4853c0abbdd59a3b5b884ce70185bfea98926c372fb30db6885"},"variants":{"class":"File","path":"drs://drs-filer-test.c03.k8s-popup.csc.fi/VzfoxN"}}`
+* `workflow_type`: `CWL`
+* `workflow_version`: `v1.0`
+* `workflow_url`: `https://github.com/elixir-cloud-aai/demo-workflows/blob/e2144852e854f6aefd382f65678c122d9c47d038/cwl/gwas_workflow/CWL_trs/gwas_workflow.cwl`
+
+Command-line call (`curl`):
+
+```bash
+curl \
+  --request POST \
+  --header 'Content-Type: multipart/form-data' \
+  --header 'Accept: application/json' \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --form workflow_params='{"metadata":{"class":"File","path":"drs://rdsds.rahtiapp.fi/6bc267ee29e120d0c3df7692ae00276f5436dfbf3f40da64b48e3fc3d5183de2a5be54695b91a4853c0abbdd59a3b5b884ce70185bfea98926c372fb30db6885"},"variants":{"class":"File","path":"drs://drs-filer-test.c03.k8s-popup.csc.fi/VzfoxN"}}' \
+  --form workflow_type="CWL" \
+  --form workflow_type_version="v1.0" \
+  --form workflow_url="https://github.com/elixir-cloud-aai/demo-workflows/blob/dev/cwl/gwas_workflow/CWL_trs/gwas_workflow.cwl" \
+  "${CWL_WES_API}/runs"
+```
+
 ## Miscellaneous
 
 ### Stress test cwl-WES
